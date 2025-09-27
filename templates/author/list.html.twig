@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Template</title>
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Picture</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Number of Books</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set nbAuthors = 0 %}
+        {%  if Authors is not null %} 
+            {% for u in Authors %}
+                {% if (u.id is not null) %}
+                    {% set nbAuthors = nbAuthors + 1 %}
+                    <tr>
+                        <td>{{u.id}}</td>
+                        <td><img src="{{u.picture}}" alt="{{u.username}}" width="50"></td>
+                        <td>{{u.username|upper()}}</td>
+                        <td>{{u.email}}</td>
+                        <td>{{u.nb_books}}</td>
+                        <td> <a href="{{path('listAuthors2', {'id': u.id})}}"> details </a> </td> 
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            <h3> number of Authors is {{ nbAuthors }} </h3>
+        {% else %} <h1> No Authors yet! </h1>  
+        {% endif %}
+        </tbody>
+    </table>
+
+</body>
+</html>
