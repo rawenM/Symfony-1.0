@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Repository\AuthorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -109,6 +109,26 @@ final class AuthorController extends AbstractController
             default:
         } 
     }
+     #[Route('/ListAuthor', name: 'ListAuthor')]
+    public function ListAuthor(AuthorRepository $repo ): Response
+    {
+        $listauthor = $repo ->findAll();
+        return $this->render('author/show.html.twig', [
+            'authorDB' => $listauthor,
+        ]);
+    }
+     #[Route('/add', name: 'add')]
+    public function add(ManagerRegistry $mr ): Response
+    {
+        //1 create instance
+        //2 remplir objet
+        //3 informer doctrine d'un nouveau ajout : persist
+        //4 envoyer flush
+        return $this->render('author/show.html.twig', [
+            'authorDB' => $listauthor,
+        ]);
+    }
+
     }
 
 
